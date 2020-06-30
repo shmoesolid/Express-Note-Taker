@@ -20,21 +20,35 @@ class db_note
     addNote(title, note)
     {
         // appends note to object array
+	    this.data.push({   
+	        "title": title,
+		    "text": note
+	    });
     }
 
     deleteNote(index)
     {
+	    // throw out of range error
+	    if (index < 0 || index >= this.data.length)
+	        throw "deleteNote method index param out of range";
+	
         // removes note by index/id
+	    // TODO confirm auto reindexes (i think does)
+	    this.data.splice(index, 1);
+
+	    // save the database
+	    //saveDatabase();
     }
 
     getNotes(limit = null, pageNumber = 1)
     {
-
+        // get note range based on params using math
     }
 
     saveDatabase()
     {
         // convert and write objArray to this.fileName
+        // TODO look into file locking for js
     }
 
     loadDatabase()
