@@ -50,10 +50,9 @@ class DB_Note
     {
         // get its index by ID
         var index = this._getNoteIndexByID(id);
-        console.log(id +" -> "+ index);
 
         // returns if no index found
-        if (index === undefined)
+        if (index === -1)
             return false;
 
         // removes note by the index
