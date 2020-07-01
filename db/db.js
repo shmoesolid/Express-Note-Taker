@@ -1,4 +1,6 @@
-var fs = require('fs');
+// requires for db class
+const fs = require('fs');
+const path = require('path');
 
 /** db class for managing note database file
  *  uses index as ID for deleting
@@ -13,10 +15,15 @@ class DB_Note
      */
     constructor(fileName = "db.json", maxNotes = 10)
     {
+        this.outputPath = path.join(__dirname, fileName);
         this.fileName = fileName;
         this.maxNotes = maxNotes;
         this.data = [];
-        this._loadDatabase();
+
+        //this._loadDatabase();
+
+        // DEBUG
+        this._setupFakeData(5);
     }
 
     /** addNote
@@ -125,6 +132,13 @@ class DB_Note
     {
         // convert and write objArray to this.fileName
         // TODO look into file locking for js
+        fs.writeFile(
+            this.outputPath, 
+            JSON.stringify(this.data), 
+            'utf-8', 
+            (err) => { if (err) throw err; }
+        );
+
         return true;
     }
 
@@ -134,6 +148,9 @@ class DB_Note
     _loadDatabase()
     {
         // read this.fileName and convert into object array and set this.data
+        var d = JSON.parse(fs.readFileSync(this.outputPath));
+        this.data = (d != null) ? d : [];
+
         return true;
     }
 

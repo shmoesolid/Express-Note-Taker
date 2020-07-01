@@ -16,9 +16,6 @@ app.use(express.json());
 // setup database
 const db = new DB_Note();
 
-// DEBUG
-db._setupFakeData(5);
-
 //////////////////////////////////////////////////////////////////////////
 // handle standard routes
 app.get('/', 
@@ -43,18 +40,18 @@ app.get('/api/notes',
     function(req, res)
     {
         // get pagination
-        let page = req.query.page;
-        let limit = req.query.limit;
+        //let page = req.query.page;
+        //let limit = req.query.limit;
 
         // handle undefined to defaults
-        page = (!page) ? 1 : page;
-        limit = (!limit) ? 0 : limit;
+        //page = (!page) ? 1 : page;
+        //limit = (!limit) ? 0 : limit;
 
         // DEBUG
         //console.log("Limit: "+ limit +" on page #"+ page);
 
         // return the notes
-        return res.json( db.getNotes(limit, page) );
+        return res.json( db.getNotes() );
     }
 );
 
