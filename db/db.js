@@ -6,11 +6,12 @@ var fs = require('fs');
  */
 class DB_Note
 {
-    /** constructor of db class
+    /** constructor
      * 
      * @param {string} fileName 
+     * @param {number} maxNotes
      */
-    constructor(fileName = "db.json", maxNotes = 100)
+    constructor(fileName = "db.json", maxNotes = 10)
     {
         this.fileName = fileName;
         this.maxNotes = maxNotes;
@@ -18,7 +19,8 @@ class DB_Note
         this._loadDatabase();
     }
 
-    /**
+    /** addNote
+     * adds a note with a unique ID and saves if allowed
      * 
      * @param {string} title 
      * @param {string} note 
@@ -42,9 +44,9 @@ class DB_Note
     }
 
     /** deleteNote
-     * removes note by ID
+     * removes note by index from ID
      * 
-     * @param {number} index
+     * @param {number} id
      */
     deleteNote(id)
     {
@@ -63,14 +65,16 @@ class DB_Note
     }
 
     /** getNotes
-     * gets notes
+     * gets the notes (pagination not implemented yet)
      * 
      * @param {number} limit 
      * @param {number} pageNumber 
      */
     getNotes(limit = 0, pageNumber = 1)
     {
-        // get note range based on params using math
+        // TODO setup pagination
+
+        // return all data for now
         return this.data;
     }
 
