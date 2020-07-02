@@ -79,7 +79,7 @@ class DB_Note
      */
     getNotes(limit = 0, pageNumber = 1)
     {
-        // TODO setup pagination
+        // TODO (maybe) setup pagination
 
         // return all data for now
         return this.data;
@@ -121,7 +121,7 @@ class DB_Note
      */
     _getNoteIndexByID(id)
     {
-        // search for and return the index if found
+        // search for and return the index if id found
         return this.data.findIndex( (obj) => obj.id == id );
     }
 
@@ -138,6 +138,7 @@ class DB_Note
             (err) => { if (err) throw err; }
         );
 
+        // just give back true
         return true;
     }
 
@@ -146,12 +147,13 @@ class DB_Note
      */
     _loadDatabase()
     {
-        // read this.fileName and convert into object array and set this.data
+        // read this.outputPath and convert into object array and set this.data
         // this only runs once upon server start so force sync
         // to make sure we got the data
         var d = JSON.parse(fs.readFileSync(this.outputPath));
         this.data = (d != null) ? d : [];
 
+        // just give back true
         return true;
     }
 
