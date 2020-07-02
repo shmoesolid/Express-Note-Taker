@@ -19,26 +19,30 @@ const db = new DB_Note();
 //////////////////////////////////////////////////////////////////////////
 // handle standard routes
 app.get('/', 
-    (req, res) => res.sendFile(path.join(__dirname, 'public/index.html'))
+    (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html'))
 );
 
 app.get('/notes', 
-    (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html'))
+    (req, res) => res.sendFile(path.join(__dirname, 'public', 'notes.html'))
 );
 
-// surely a better solution than these two below, leaving for now
-app.get('/assets/js/index.js', 
-    (req, res) => res.sendFile(path.join(__dirname, 'public/assets/js/index.js'))
-);
+// for handling assets single dir and file (client css and js)
+app.get('/assets/:dir/:file',
+    function (req, res)
+    {
+        // readability
+        let dir = req.params.dir;
+        let file = req.params.file;
 
-app.get('/assets/css/styles.css', 
-    (req, res) => res.sendFile(path.join(__dirname, 'public/assets/css/styles.css'))
+        // send it
+        res.sendFile(path.join(__dirname, 'public', 'assets', dir, file));
+    }
 );
 
 //////////////////////////////////////////////////////////////////////////
 // handle API routes
 app.get('/api/notes', 
-    function(req, res)
+    function (req, res)
     {
         // return the notes
         return res.json( db.getNotes() );

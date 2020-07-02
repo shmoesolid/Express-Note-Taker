@@ -20,10 +20,10 @@ class DB_Note
         this.maxNotes = maxNotes;
         this.data = [];
 
-        //this._loadDatabase();
+        this._loadDatabase();
 
         // DEBUG
-        this._setupFakeData(5);
+        //this._setupFakeData(5);
     }
 
     /** addNote
