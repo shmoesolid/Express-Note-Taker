@@ -26,6 +26,7 @@ app.get('/notes',
     (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
+// surely a better solution than these two below, leaving for now
 app.get('/assets/js/index.js', 
     (req, res) => res.sendFile(path.join(__dirname, 'public/assets/js/index.js'))
 );
@@ -39,17 +40,6 @@ app.get('/assets/css/styles.css',
 app.get('/api/notes', 
     function(req, res)
     {
-        // get pagination
-        //let page = req.query.page;
-        //let limit = req.query.limit;
-
-        // handle undefined to defaults
-        //page = (!page) ? 1 : page;
-        //limit = (!limit) ? 0 : limit;
-
-        // DEBUG
-        //console.log("Limit: "+ limit +" on page #"+ page);
-
         // return the notes
         return res.json( db.getNotes() );
     }

@@ -131,7 +131,6 @@ class DB_Note
     _saveDatabase()
     {
         // convert and write objArray to this.fileName
-        // TODO look into file locking for js
         fs.writeFile(
             this.outputPath, 
             JSON.stringify(this.data), 
@@ -148,6 +147,8 @@ class DB_Note
     _loadDatabase()
     {
         // read this.fileName and convert into object array and set this.data
+        // this only runs once upon server start so force sync
+        // to make sure we got the data
         var d = JSON.parse(fs.readFileSync(this.outputPath));
         this.data = (d != null) ? d : [];
 
