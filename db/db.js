@@ -39,8 +39,8 @@ class DB_Note
     {
         // don't add if reached max or title or note lengths
         if (this.data.length >= this.maxNotes
-            || this.title.length > this.maxTitleLength
-            || this.note.length > this.maxNoteLength
+            || title.length > this.maxTitleLength
+            || note.length > this.maxNoteLength
         ) {
             return false;
         }
