@@ -10,12 +10,15 @@ class DB_Note
 {
     /** constructor
      * 
-     * @param {string} fileName 
-     * @param {number} maxNotes
+     * @param {string} fileName (doesn't handle dir if dir not made)
+     * @param {number} maxNotes (no pagination yet so don't make too high)
+     * @param {number} maxTitleLength (match client side length)
+     * @param {number} maxNoteLength (match client side length)
      */
     constructor(fileName = "db.json", maxNotes = 10, maxTitleLength = 28, maxNoteLength = 2048)
     {
         this.outputPath = path.join(__dirname, fileName);
+
         this.fileName = fileName;
         this.maxNotes = maxNotes;
         this.maxTitleLength = maxTitleLength;
@@ -23,8 +26,6 @@ class DB_Note
         this.data = [];
 
         this._loadDatabase();
-
-        // DEBUG
         //this._setupFakeData(5);
     }
 
@@ -93,6 +94,8 @@ class DB_Note
 
     /** _generateUniqueID
      * generates an ID and confirms doesn't exist
+     * 
+     * @param {boolean} extra (adds extra random number string)
      */
     _generateUniqueID(extra = true)
     {
@@ -113,7 +116,7 @@ class DB_Note
     /** _idExists
      * checks if exists and returns true or false
      * 
-     * @param {number} id 
+     * @param {number} id (int)
      */
     _idExists(id)
     {
@@ -123,7 +126,7 @@ class DB_Note
     /** _getNoteIndexByID
      * gets the index if exists otherwise -1
      * 
-     * @param {number} id 
+     * @param {number} id (int)
      */
     _getNoteIndexByID(id)
     {
@@ -165,6 +168,8 @@ class DB_Note
 
     /** _setupFakeData
      * DEBUG fake data setup
+     * 
+     * @param {number} length (int)
      */
     _setupFakeData(length = 100)
     {
