@@ -13,11 +13,13 @@ class DB_Note
      * @param {string} fileName 
      * @param {number} maxNotes
      */
-    constructor(fileName = "db.json", maxNotes = 10)
+    constructor(fileName = "db.json", maxNotes = 10, maxTitleLength = 28, maxNoteLength = 2048)
     {
         this.outputPath = path.join(__dirname, fileName);
         this.fileName = fileName;
         this.maxNotes = maxNotes;
+        this.maxTitleLength = maxTitleLength;
+        this.maxNoteLength = maxNoteLength;
         this.data = [];
 
         this._loadDatabase();
@@ -35,10 +37,14 @@ class DB_Note
      */
     addNote(title, note, forceSave = true)
     {
-        // don't add if reached 
-        if (this.data.length >= this.maxNotes)
+        // don't add if reached max or title or note lengths
+        if (this.data.length >= this.maxNotes
+            || this.title.length > this.maxTitleLength
+            || this.note.length > this.maxNoteLength
+        ) {
             return false;
-
+        }
+        
         // appends note to object array
 	    this.data.push({
 	        "title": title,
